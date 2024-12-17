@@ -1,0 +1,5 @@
+# Ignore raw health data
+apple_health_export/export.xml
+apple_health_export/export_cda.xml
+output/
+apple_health_export/workout-routes/*
