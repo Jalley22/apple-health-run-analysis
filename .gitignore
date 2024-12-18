@@ -1,4 +1,5 @@
 # Ignore raw health data
+.ipynb_checkpoints/
 apple_health_export/export.xml
 apple_health_export/export_cda.xml
 output/

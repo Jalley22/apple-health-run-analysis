@@ -21,14 +21,22 @@ This project processes and extracts running workout data from Apple Health's `ex
 ---
 
 ## Repository Structure 📁
-📂 apple-health-run-analysis │ 
-├── data/ 
-│ └── export.xml # Sample raw Health data export 
-│ ├── scripts/ 
-│ └── parse_health_data.py # Python script for processing data 
-│ ├── output/ 
-│ └── running_data.csv # Cleaned and structured run data 
-│ └── README.md # Project documentation
+📂 apple-health-analysis
+│
+├── data/
+│   ├── export.xml                  # Raw XML data
+│   ├── parsed_workouts.csv         # Cleaned data from XML parsing
+│
+├── notebooks/
+│   ├── 1_xml_parsing.ipynb         # Notebook for XML parsing
+│   ├── 2_eda_workouts.ipynb        # Exploratory Data Analysis
+│   ├── 3_modeling_workouts.ipynb   # Modeling and advanced analysis
+│
+├── output/
+│   └── visualizations/             # Saved charts and results
+│
+└── README.md                       # Project documentation
+
 
 
 ---
