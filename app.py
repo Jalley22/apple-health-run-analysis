@@ -210,17 +210,23 @@ if not workouts.empty:
         st.plotly_chart(fig, use_container_width=True)
 
 # Recent HR + HRV trends
-if not resting_hr.empty or not hrv.empty:
+hr_data = data["heart_rate"]
+if not hr_data.empty or not hrv.empty:
     st.subheader("Vitals")
     col1, col2 = st.columns(2)
 
     with col1:
-        if not resting_hr.empty:
-            rhr = resting_hr.copy()
-            if hasattr(rhr["startDate"].dtype, "tz") and rhr["startDate"].dtype.tz:
-                rhr["startDate"] = rhr["startDate"].dt.tz_localize(None)
-            rhr_weekly = rhr.set_index("startDate").resample("W")["value"].mean().reset_index()
-            fig = px.line(rhr_weekly, x="startDate", y="value",
+        if not hr_data.empty:
+            hr_local = hr_data.copy()
+            if hasattr(hr_local["startDate"].dtype, "tz") and hr_local["startDate"].dtype.tz:
+                hr_local["startDate"] = hr_local["startDate"].dt.tz_localize(None)
+            # Derive resting HR from daily 5th percentile of all HR readings
+            import numpy as np
+            daily_p5 = hr_local.groupby(hr_local["startDate"].dt.date)["value"].quantile(0.05).reset_index()
+            daily_p5.columns = ["Date", "RestingHR"]
+            daily_p5["Date"] = pd.to_datetime(daily_p5["Date"])
+            rhr_weekly = daily_p5.set_index("Date").resample("W")["RestingHR"].mean().reset_index()
+            fig = px.line(rhr_weekly, x="Date", y="RestingHR",
                           color_discrete_sequence=[COLORS["primary"]])
             fig.update_layout(title="Resting HR (Weekly)", yaxis_title="BPM",
                               xaxis_title="", height=280, margin=dict(t=40, b=20))

@@ -40,7 +40,8 @@ selected_types = st.sidebar.multiselect(
 min_date = workouts["StartDate"].min().date()
 max_date = workouts["StartDate"].max().date()
 date_range = st.sidebar.date_input(
-    "Date Range", value=(min_date, max_date), min_value=min_date, max_value=max_date
+    "Date Range", value=(min_date, max_date), min_value=min_date, max_value=max_date,
+    key=f"workout_dates_{min_date}"
 )
 
 # Apply filters
