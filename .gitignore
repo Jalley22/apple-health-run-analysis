@@ -1,6 +1,22 @@
-# Ignore raw health data
-.ipynb_checkpoints/
-apple_health_export/export.xml
-apple_health_export/export_cda.xml
+# Health data
+apple_health_export/
+export.zip
 output/
-apple_health_export/workout-routes/*
+
+# Cache and database
+.cache/
+*.parquet
+*.duckdb
+*.duckdb.wal
+
+# User profile (personal settings)
+user_profile.json
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
